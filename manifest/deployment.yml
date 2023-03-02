@@ -11,28 +11,40 @@ spec:
     metadata:
       labels:
         app: banchiospring-app
+        azure.workload.identity/use: "true"
     spec:
       nodeSelector:
         kubernetes.io/os: linux
+      serviceAccountName: banchiospring-app-sa
       containers:
       - name: banchiospring-app
         image: banchioacrprem.azurecr.io/com.banchio.restapi:latest
-        env: 
-        - name: AZURE_CLIENT_ID
-          valueFrom: 
-            secretKeyRef: 
-              name: banchiospring-app-sp
-              key: clientid
-        - name: AZURE_CLIENT_SECRET
-          valueFrom: 
-            secretKeyRef: 
-              name: banchiospring-app-sp
-              key: secret
-        - name: AZURE_TENANT_ID
-          valueFrom: 
-            secretKeyRef: 
-              name: banchiospring-app-sp
-              key: tenantid
+        env:
+          - name: APPLICATIONINSIGHTS_CONFIGURATION_CONTENT
+            valueFrom:
+              configMapKeyRef:
+                name: application-insights-configuration
+                key: config
+          - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+            valueFrom:
+              secretKeyRef:
+                name: application-insights-connectionstring
+                key: connstring
+        # - name: AZURE_CLIENT_ID
+        #   valueFrom: 
+        #     secretKeyRef: 
+        #       name: banchiospring-app-sp
+        #       key: clientid
+        # - name: AZURE_CLIENT_SECRET
+        #   valueFrom: 
+        #     secretKeyRef: 
+        #       name: banchiospring-app-sp
+        #       key: secret
+        # - name: AZURE_TENANT_ID
+        #   valueFrom: 
+        #     secretKeyRef: 
+        #       name: banchiospring-app-sp
+        #       key: tenantid
         resources:
           requests:
             cpu: "100m"
