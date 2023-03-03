@@ -15,7 +15,7 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/os: linux
-      serviceAccountName: banchiospring-app-sa
+      serviceAccountName: banchiospringapp-aks-sa
       containers:
       - name: banchiospring-app
         image: banchioacrprem.azurecr.io/com.banchio.restapi:latest
