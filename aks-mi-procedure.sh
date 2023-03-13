@@ -1,5 +1,5 @@
-list of commands used to enable workload identity
-taken from https://learn.microsoft.com/en-us/azure/aks/workload-identity-deploy-cluster
+# list of commands used to enable workload identity
+# taken from https://learn.microsoft.com/en-us/azure/aks/workload-identity-deploy-cluster
 
 # If the cluster already exists:
 az aks update -n banchioaks2 -g aks --enable-oidc-issuer --enable-workload-identity
