@@ -49,6 +49,11 @@
 			<artifactId>applicationinsights-runtime-attach</artifactId>
 			<version>3.4.10</version>
 		</dependency>
+		<dependency>
+			<groupId>com.azure.spring</groupId>
+			<artifactId>spring-cloud-azure-stream-binder-servicebus</artifactId>
+	   </dependency>
+	   
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
