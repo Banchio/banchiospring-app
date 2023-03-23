@@ -5,6 +5,10 @@ import org.springframework.http.MediaType;
 
 import com.azure.security.keyvault.secrets.SecretClient;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +23,7 @@ import java.util.function.Supplier;
 @CrossOrigin
 @RestController
 @RequestMapping("/test")
+@RestControllerAdvice
 public class TestController {
   
 
@@ -32,6 +37,11 @@ public class TestController {
 
 
     @GetMapping(value = "/getsecret", produces = MediaType.TEXT_PLAIN_VALUE)
+    @Operation(summary = "Get a secret from Key Vault")
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Found the secret", content = { @Content(mediaType = "application/text")}),
+        @ApiResponse(responseCode = "500", description = "an error has occurred", content = { @Content(mediaType = "application/text")}) 
+    })
     public String GetSecret() throws Exception {
         String mySecretValue = "";
         mySecretValue = secretClient.getSecret("springsecret").getValue();
